@@ -118,5 +118,18 @@ namespace UnitakHubMarketplace.Db
 
             return result;
         }
+
+
+        // Depois da venda
+
+        public DataTable SelectDavNfe(long idMarketPlace)
+        {
+            string sql = "SELECT nxml.ID_Serie,nxml.XML,nxml.NFE,nfe.Data_Emissao FROM Dav d" +
+                " inner join Vendas v on v.ID_Venda = d.ID_Venda" +
+                " inner join NFe nfe on NFe.ID_NFe = v.ID_NFe" +
+                " inner join NFe_XML nxml on nxml.ID_NFe = nfe.ID_NFe" +
+                " WHERE ID_Marketplace = " + idMarketPlace;
+            return con.Select(sql);
+        }
     }
 }

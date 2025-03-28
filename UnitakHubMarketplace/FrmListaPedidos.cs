@@ -526,7 +526,7 @@ namespace Unitak.Woocommerce
                         DataTable dt = dav.SelectDavNfe(int.Parse(order.orderIdStore));
                         if (dt.Rows.Count > 0)
                         {
-                            order.invoice.Fill(order, dt);
+                            order.invoice.Fill(order, dt);  
                         }
                         else {
                             //criar um dialog para receber as informaçoes manualmente

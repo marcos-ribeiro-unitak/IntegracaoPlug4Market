@@ -106,6 +106,7 @@
     <Compile Include="Db\DbContador.cs" />
     <Compile Include="Db\DbDav.cs" />
     <Compile Include="Db\DbDavItem.cs" />
+    <Compile Include="Db\DbNfe.cs" />
     <Compile Include="Db\DbProdutos.cs" />
     <Compile Include="FrmCadastroInicial.cs">
       <SubType>Form</SubType>
