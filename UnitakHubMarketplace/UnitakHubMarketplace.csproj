@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ED0F8D8B-F828-4C0C-9DD8-77BA42634E7D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UnitakHubMarketplace</RootNamespace>
+    <AssemblyName>UnitakHubMarketplace</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="database">
+      <HintPath>..\..\..\..\..\..\WorkSpace\VisualStudio\IntegracaoWoocommerce\@DLL\database.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=112.1.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.112.1.0\lib\net471\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.8.0.4\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unitak.Config">
+      <HintPath>..\..\..\..\..\..\WorkSpace\VisualStudio\IntegracaoWoocommerce\@DLL\Unitak.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="unitak.uteis">
+      <HintPath>..\..\..\..\..\..\WorkSpace\VisualStudio\IntegracaoWoocommerce\@DLL\unitak.uteis.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Apis\ApiAccess.cs" />
+    <Compile Include="Apis\Plug4Market\ApiAnnouncements.cs" />
+    <Compile Include="Apis\Plug4Market\ApiAuth.cs" />
+    <Compile Include="Apis\Plug4Market\ApiCustomCategories.cs" />
+    <Compile Include="Apis\Plug4Market\ApiPedido.cs" />
+    <Compile Include="Apis\Plug4Market\ApiProduto.cs" />
+    <Compile Include="ConfigHub.cs" />
+    <Compile Include="Db\DbClientes.cs" />
+    <Compile Include="Db\DbAccess.cs" />
+    <Compile Include="Db\DbConfig.cs" />
+    <Compile Include="Db\DbContador.cs" />
+    <Compile Include="Db\DbDav.cs" />
+    <Compile Include="Db\DbDavItem.cs" />
+    <Compile Include="Db\DbProdutos.cs" />
+    <Compile Include="FrmCadastroInicial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCadastroInicial.Designer.cs">
+      <DependentUpon>FrmCadastroInicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCadastroItens.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCadastroItens.Designer.cs">
+      <DependentUpon>FrmCadastroItens.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCategorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCategorias.Designer.cs">
+      <DependentUpon>FrmCategorias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmItensDimensao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmItensDimensao.Designer.cs">
+      <DependentUpon>FrmItensDimensao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmItensEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmItensEstoque.Designer.cs">
+      <DependentUpon>FrmItensEstoque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmListaPedidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmListaPedidos.Designer.cs">
+      <DependentUpon>FrmListaPedidos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPedido.Designer.cs">
+      <DependentUpon>FrmPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MercadoLivre\Auth.cs" />
+    <Compile Include="Models\MercadoLivre\Order.cs" />
+    <Compile Include="Models\Plug4Market\Announcements.cs" />
+    <Compile Include="Models\Plug4Market\Auth.cs" />
+    <Compile Include="Models\Plug4Market\CustomCategories.cs" />
+    <Compile Include="Models\Plug4Market\Order.cs" />
+    <Compile Include="Models\Plug4Market\Produto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\Retorno.cs" />
+    <Compile Include="SyslojaModels\Cliente.cs" />
+    <Compile Include="SyslojaModels\CondicaoPgto.cs" />
+    <Compile Include="SyslojaModels\Dav.cs" />
+    <Compile Include="SyslojaModels\DavItem.cs" />
+    <Compile Include="SyslojaModels\Endereco.cs" />
+    <Compile Include="SyslojaModels\Grade.cs" />
+    <Compile Include="SyslojaModels\Item.cs" />
+    <Compile Include="SyslojaModels\Kit.cs" />
+    <Compile Include="UcConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcConfig.Designer.cs">
+      <DependentUpon>UcConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UcItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcItem.Designer.cs">
+      <DependentUpon>UcItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Uteis.cs" />
+    <EmbeddedResource Include="FrmCadastroInicial.resx">
+      <DependentUpon>FrmCadastroInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCadastroItens.resx">
+      <DependentUpon>FrmCadastroItens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCategorias.resx">
+      <DependentUpon>FrmCategorias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmItensDimensao.resx">
+      <DependentUpon>FrmItensDimensao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmItensEstoque.resx">
+      <DependentUpon>FrmItensEstoque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmListaPedidos.resx">
+      <DependentUpon>FrmListaPedidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPedido.resx">
+      <DependentUpon>FrmPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UcConfig.resx">
+      <DependentUpon>UcConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcItem.resx">
+      <DependentUpon>UcItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\confirma_branco.png" />
+    <Content Include="Resources\edit_branco.png" />
+    <Content Include="Resources\x_branco.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
