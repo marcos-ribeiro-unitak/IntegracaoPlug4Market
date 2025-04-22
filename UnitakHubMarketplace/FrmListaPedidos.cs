@@ -37,6 +37,7 @@ namespace Unitak.Woocommerce
         private void FrmListaPedidos_Load(object sender, System.EventArgs e)
         {
             ConfigHub.Carregar();
+            new ApiAuth().Autenticar();
 
             InicializaCampos();
 
@@ -52,7 +53,7 @@ namespace Unitak.Woocommerce
         private void InicializaCampos()
         {
             //if (ConfigHub.INTEGRACAO == "NuvemShop")
-                //tabPedidos.TabPages.RemoveAt(1);//PROCESSADOS
+            //tabPedidos.TabPages.RemoveAt(1);//PROCESSADOS
 
             if (dgvPedidosAguar.Columns.Count == 0)
             {
@@ -71,7 +72,6 @@ namespace Unitak.Woocommerce
                 dgvPedidosConc.Columns.Add(colAbrir());
                 dgvPedidosCanc.Columns.Add(colAbrir());
             }
-
         }
 
         private void AddCols(DataGridView dgv)
@@ -156,7 +156,7 @@ namespace Unitak.Woocommerce
                 //    davit = new DavItem(dtIt.Rows[0]);
                 davit.ID_Empresa = "1";
 
-                 davit.ID_DAV_Item = dbDavIt.Gravar(davit).ToString();
+                davit.ID_DAV_Item = dbDavIt.Gravar(davit).ToString();
             }
         }
 
@@ -164,16 +164,12 @@ namespace Unitak.Woocommerce
         {
             while (!IsDisposed)// && ConfigHub.TIMER_PEDIDOS > 0)
             {
-                TimeSpan diferencaAccess = DateTime.Now - ConfigHub.ULTIMA_ATUALIZACAO_ACCESS_TOKEN;
-                TimeSpan diferencaRefresh = DateTime.Now - ConfigHub.ULTIMA_ATUALIZACAO_REFRESH_TOKEN;
-                ApiAuth apiAuth = new ApiAuth();
-                
-                if (diferencaRefresh.TotalDays >= 300) {
-                    apiAuth.AuthLogin();
-                }else if (diferencaAccess.TotalHours >= 23) {
-                    apiAuth.RefreshBearer();
-                }
-                ApiPedido apiPedido = new ApiPedido();
+                //CASO O LOGIN OU SENHA NÃO ESTEJAM CONFIGURADOS NÃO FAZ NADA
+                //CASO O LOGIN OU SENHA NÃO ESTEJAM CONFIGURADOS NÃO FAZ NADA
+                if (!string.IsNullOrEmpty(ConfigHub.LOGIN) || !string.IsNullOrEmpty(ConfigHub.SENHA))
+                {
+
+                    ApiPedido apiPedido = new ApiPedido();
                     RetornoOrders lista = apiPedido.GetPedidos(/*"paid"*/);
                     if (lista == null)
                         erro = new Exception("Erro ao buscar lista de Pedidos");
@@ -183,41 +179,48 @@ namespace Unitak.Woocommerce
                     if (erro == null)
                     {
                         qtdPedAguardando = lista.data.Count;
-                    for (int i = 0; i < lista.data.Count(); i++)
+                        for (int i = 0; i < lista.data.Count(); i++)
+                        {
+                            if (lista.data[i].status == "APPROVED" && (lista.data[i].orderIdStore == "" || lista.data[i].orderIdStore == null))
+                                FillLista(dgvPedidosAguar, lista, lista.data[i].status);
+                        }
+                    }
+                    else
                     {
-                        if (lista.data[i].status == "APPROVED" && (lista.data[i].orderIdStore == "" || lista.data[i].orderIdStore == null))
-                            FillLista(dgvPedidosAguar, lista, lista.data[i].status);
+                        if (apiPedido.retorno.error_status == 401)
+                        {
+                            new ApiAuth().Autenticar();
+                        }
                     }
                 }
-                
-
-
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 GC.Collect();
 
                 Thread.Sleep(ConfigHub.TIMER_PEDIDOS * 1000);
+
             }
         }
+
         private void tAtualizaOEstoque()
         {
             while (!IsDisposed)// && ConfigHub.TIMER_PEDIDOS > 0)
             {
                 DateTime ultimaAtualizacao;
-                
-                    ultimaAtualizacao = DateTime.Now;
-                    DbProdutos dbProdutos = new DbProdutos();
-                    ApiProdutos apiProdutos = new ApiProdutos();
-                    DataTable dtEstoque = dbProdutos.SelectEstoqueCardex();
-                    List<string> lIdSku = new List<string>();
-                    List<Produto> lProduto = new List<Produto>();
-                    /// select utlima atualização
-                    foreach(DataRow dr in dtEstoque.Rows)
+
+                ultimaAtualizacao = DateTime.Now;
+                DbProdutos dbProdutos = new DbProdutos();
+                ApiProdutos apiProdutos = new ApiProdutos();
+                DataTable dtEstoque = dbProdutos.SelectEstoqueCardex();
+                List<string> lIdSku = new List<string>();
+                List<Produto> lProduto = new List<Produto>();
+                /// select utlima atualização
+                foreach (DataRow dr in dtEstoque.Rows)
+                {
+                    if (dr["ID_Marketplace"].ToString() != null && dr["ID_Marketplace"].ToString() != "")
                     {
-                        if (dr["ID_Marketplace"].ToString() != null && dr["ID_Marketplace"].ToString() != "")
-                        {
-                            Produto pRetorno = apiProdutos.GetProdutoSku(dr["ID_Marketplace"].ToString());
+                        Produto pRetorno = apiProdutos.GetProdutoSku(dr["ID_Marketplace"].ToString());
                         double estoque = double.Parse(dr["Estoque_Depois"].ToString());
                         if (estoque < 0)
                             estoque = 0;
@@ -235,16 +238,17 @@ namespace Unitak.Woocommerce
                         //    }
                         //}
 
-                        }
                     }
-                    if (dtEstoque.Rows.Count > 0) {
-                        //apiProdutos.AlterarStockNuvemShop(lProduto);
-                        ConfigHub.ULTIMA_ATUALIZACAO = ultimaAtualizacao;
-                    }
-                    
-                
+                }
+                if (dtEstoque.Rows.Count > 0)
+                {
+                    //apiProdutos.AlterarStockNuvemShop(lProduto);
+                    ConfigHub.ULTIMA_ATUALIZACAO = ultimaAtualizacao;
+                }
 
-               
+
+
+
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
@@ -311,7 +315,6 @@ namespace Unitak.Woocommerce
 
         private void TaskBusca(string status)
         {
-
             lblLoad.Visible = true;
             lblLoad.Text = "Carregando...";
             lblLoad.BackColor = Color.DodgerBlue;
@@ -326,49 +329,48 @@ namespace Unitak.Woocommerce
             Task.Run(() =>
             {
                 ApiPedido apiPedido = new ApiPedido();
-                    RetornoOrders lista = new RetornoOrders();
-                    lista = apiPedido.GetPedidos();
+                RetornoOrders lista = apiPedido.GetPedidos();
 
-                for (int i = 0; i < lista.data.Count(); i++) {
-
-                    if (lista.data[i].status == "APPROVED" && (lista.data[i].orderIdStore == "" || lista.data[i].orderIdStore == null))
-                        FillLista(dgvPedidosAguar, lista, lista.data[i].status);
-                    else if (lista.data[i].status == "APPROVED" && (lista.data[i].orderIdStore != "" && lista.data[i].orderIdStore != null))
-                        FillLista(dgvPedidosAprov, lista, lista.data[i].status);
-                    else if (lista.data[i].status == "INVOICED")
-                        FillLista(dgvPedidosFatu, lista, lista.data[i].status);
-                    else if (lista.data[i].status == "SHIPPED")
-                        FillLista(dgvPedidosEnv, lista, lista.data[i].status);
-                    else if (lista.data[i].status == "COMPLETED")
-                        FillLista(dgvPedidosConc, lista, lista.data[i].status);
-                    else if (lista.data[i].status == "CANCELED")
-                        FillLista(dgvPedidosCanc, lista, lista.data[i].status);
+                if (lista != null)
+                {
+                    for (int i = 0; i < lista.data.Count(); i++)
+                    {
+                        if (lista.data[i].status == "APPROVED" && (lista.data[i].orderIdStore == "" || lista.data[i].orderIdStore == null))
+                            FillLista(dgvPedidosAguar, lista, lista.data[i].status);
+                        else if (lista.data[i].status == "APPROVED" && (lista.data[i].orderIdStore != "" && lista.data[i].orderIdStore != null))
+                            FillLista(dgvPedidosAprov, lista, lista.data[i].status);
+                        else if (lista.data[i].status == "INVOICED")
+                            FillLista(dgvPedidosFatu, lista, lista.data[i].status);
+                        else if (lista.data[i].status == "SHIPPED")
+                            FillLista(dgvPedidosEnv, lista, lista.data[i].status);
+                        else if (lista.data[i].status == "COMPLETED")
+                            FillLista(dgvPedidosConc, lista, lista.data[i].status);
+                        else if (lista.data[i].status == "CANCELED")
+                            FillLista(dgvPedidosCanc, lista, lista.data[i].status);
+                    }
                 }
-                    
-                    
-
             });
         }
 
         private void tabPedidos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-                if (tabPedidos.SelectedIndex == 0)
-                    TaskBusca("NEW");
-                else if (tabPedidos.SelectedIndex == 1)
-                    TaskBusca("APPROVED");
-                else if (tabPedidos.SelectedIndex == 2)
-                    TaskBusca("INVOICED");
-                else if (tabPedidos.SelectedIndex == 3)
-                    TaskBusca("SHIPPED");
-                else if (tabPedidos.SelectedIndex == 4)
-                    TaskBusca("COMPLETED");
-                else if (tabPedidos.SelectedIndex == 5)
-                    TaskBusca("CANCELED");
-                else
-                    lblLoad.Visible = false;
-            
-           
+
+            if (tabPedidos.SelectedIndex == 0)
+                TaskBusca("NEW");
+            else if (tabPedidos.SelectedIndex == 1)
+                TaskBusca("APPROVED");
+            else if (tabPedidos.SelectedIndex == 2)
+                TaskBusca("INVOICED");
+            else if (tabPedidos.SelectedIndex == 3)
+                TaskBusca("SHIPPED");
+            else if (tabPedidos.SelectedIndex == 4)
+                TaskBusca("COMPLETED");
+            else if (tabPedidos.SelectedIndex == 5)
+                TaskBusca("CANCELED");
+            else
+                lblLoad.Visible = false;
+
+
 
         }
 
@@ -377,9 +379,9 @@ namespace Unitak.Woocommerce
             if (e.ColumnIndex < 4)
             {
                 this.Hide();
-                    ApiPedido apiPedido = new ApiPedido();
-                    DataOrder retPed = (DataOrder)dgvPedidosAguar.Rows[e.RowIndex].Tag;
-                    Order order = apiPedido.GetPedido(retPed.id.ToString());
+                ApiPedido apiPedido = new ApiPedido();
+                DataOrder retPed = (DataOrder)dgvPedidosAguar.Rows[e.RowIndex].Tag;
+                Order order = apiPedido.GetPedido(retPed.id.ToString());
                 if (order != null)
                 {
                     FrmPedido frm = new FrmPedido(order);
@@ -389,11 +391,11 @@ namespace Unitak.Woocommerce
                     if (result == DialogResult.Yes)
                         new ApiPedido().ConfirmaPedido(order);
                 }
-                
+
             }
         }
 
-        
+
         private void FrmListaPedidos_Activated(object sender, EventArgs e)
         {
             tabPedidos.SelectedIndex = 0;
@@ -410,7 +412,7 @@ namespace Unitak.Woocommerce
                     lblLoad.BackColor = Color.Red;
                     return;
                 }
-                
+
                 dgv.Rows.Clear();
                 if (dgv.Name == "dgvPedidosAguar")
                 {
@@ -421,7 +423,8 @@ namespace Unitak.Woocommerce
                 {
                     listaStatus = lista.data.Where((e) => e.status == status && (e.orderIdStore != null && e.orderIdStore != "")).ToList();
                 }
-                else {
+                else
+                {
                     listaStatus = lista.data.Where((e) => e.status == status).ToList();
                 }
                 for (int i = 0; i < listaStatus.Count; i++)
@@ -454,9 +457,10 @@ namespace Unitak.Woocommerce
                 Order order = new ApiPedido().GetPedido(retPed.id.ToString());
                 FrmPedido frm = new FrmPedido(order);
                 DialogResult result = frm.ShowDialog();
-                if (result == DialogResult.Yes) {
+                if (result == DialogResult.Yes)
+                {
                     order.orderIdStore = GravarDav(order);
-                    if(order.orderIdStore != null && order.orderIdStore != null)
+                    if (order.orderIdStore != null && order.orderIdStore != null)
                         new ApiPedido().ConfirmaPedido(order);
                 }
                 //if (e.ColumnIndex == 4)
@@ -469,7 +473,7 @@ namespace Unitak.Woocommerce
 
             }
         }
-       
+
 
         private void dgvPedidosConc_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -500,7 +504,7 @@ namespace Unitak.Woocommerce
                 DialogResult result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                     //new ApiPedido().ConfirmaPedido(order);
-                frm.ShowInTaskbar = true;
+                    frm.ShowInTaskbar = true;
                 //frm.ShowDialog();
 
                 this.Show();
@@ -517,28 +521,29 @@ namespace Unitak.Woocommerce
                 Order order = new ApiPedido().GetPedido(retPed.id.ToString());
                 FrmPedido frm = new FrmPedido(order);
                 // if order.invoice == null preencher os dados para faturamento
-              
+
                 DialogResult result = frm.ShowDialog();
-                if (result == DialogResult.OK) {
+                if (result == DialogResult.Yes)
+                {
                     if (order.invoice == null)
                     {
                         DbDav dav = new DbDav();
                         DataTable dt = dav.SelectDavNfe(int.Parse(order.orderIdStore));
                         if (dt.Rows.Count > 0)
                         {
-                            order.invoice.Fill(order, dt);  
+                            order.invoice.Fill(order, dt);
                         }
-                        else {
+                        else
+                        {
                             //criar um dialog para receber as informaçoes manualmente
                         }
                     }
                     //new DbDav().GravarODav();
-                    new ApiPedido().ConfirmaFaturamento(order);
-                    
+                    if (order.invoice != null)
+                        new ApiPedido().ConfirmaFaturamento(order);
+
                 }
                 frm.ShowInTaskbar = true;
-                //frm.ShowDialog();
-
 
                 this.Show();
             }
@@ -553,10 +558,12 @@ namespace Unitak.Woocommerce
                 Order order = new ApiPedido().GetPedido(retPed.id.ToString());
                 FrmPedido frm = new FrmPedido(order);
                 // preencher o envio
-               
+
                 DialogResult result = frm.ShowDialog();
-                if (result == DialogResult.OK) {
-                    if (order.shipment == null) {
+                if (result == DialogResult.OK)
+                {
+                    if (order.shipment == null)
+                    {
                         order.shipment = new Shipment();
                         order.shipment.shippingCarrier = "A";
                         order.shipment.trackingUrl = "string";
@@ -565,8 +572,6 @@ namespace Unitak.Woocommerce
                     new ApiPedido().ConfirmaEnvio(order);
                 }
                 frm.ShowInTaskbar = true;
-                //frm.ShowDialog();
-
 
                 this.Show();
             }
@@ -582,15 +587,15 @@ namespace Unitak.Woocommerce
                 FrmPedido frm = new FrmPedido(order);
                 DialogResult result = frm.ShowDialog();
 
-                if (result == DialogResult.OK) {
-                    if (order.deliveredAt == null) {
+                if (result == DialogResult.OK)
+                {
+                    if (order.deliveredAt == null)
+                    {
                         order.deliveredAt = DateTime.Now;
-                    }                
+                    }
                     new ApiPedido().ConfirmaçaoEntrega(order);
                 }
                 frm.ShowInTaskbar = true;
-                //frm.ShowDialog();
-
 
                 this.Show();
             }

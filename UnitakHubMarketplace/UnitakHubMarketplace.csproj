@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="database">
-      <HintPath>..\..\..\..\..\..\WorkSpace\VisualStudio\IntegracaoWoocommerce\@DLL\database.dll</HintPath>
+      <HintPath>..\@Dll\database.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -86,10 +86,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Unitak.Config">
-      <HintPath>..\..\..\..\..\..\WorkSpace\VisualStudio\IntegracaoWoocommerce\@DLL\Unitak.Config.dll</HintPath>
+      <HintPath>..\@Dll\Unitak.Config.dll</HintPath>
     </Reference>
     <Reference Include="unitak.uteis">
-      <HintPath>..\..\..\..\..\..\WorkSpace\VisualStudio\IntegracaoWoocommerce\@DLL\unitak.uteis.dll</HintPath>
+      <HintPath>..\@Dll\unitak.uteis.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -153,7 +153,6 @@
     <Compile Include="Models\MercadoLivre\Auth.cs" />
     <Compile Include="Models\MercadoLivre\Order.cs" />
     <Compile Include="Models\Plug4Market\Announcements.cs" />
-    <Compile Include="Models\Plug4Market\Auth.cs" />
     <Compile Include="Models\Plug4Market\CustomCategories.cs" />
     <Compile Include="Models\Plug4Market\Order.cs" />
     <Compile Include="Models\Plug4Market\Produto.cs" />
@@ -231,6 +230,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ACESSOS_INTEGRACAO.txt" />
     <Content Include="Resources\confirma_branco.png" />
     <Content Include="Resources\edit_branco.png" />
     <Content Include="Resources\x_branco.png" />

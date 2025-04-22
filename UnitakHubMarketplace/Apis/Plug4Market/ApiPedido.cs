@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnitakHubMarketplace.Models.Plug4Market;
 
@@ -10,8 +6,8 @@ namespace UnitakHubMarketplace.Apis.Plug4Market
 {
     public class ApiPedido
     {
-        public static string path = "/orders";
-        public static Retorno retorno = new Retorno();
+        public string path = "/orders";
+        public Retorno retorno = new Retorno();
 
         public void fillRetorno(string Json)
         {
@@ -33,7 +29,7 @@ namespace UnitakHubMarketplace.Apis.Plug4Market
                 retorno = JsonConvert.DeserializeObject<Retorno>(Json);
                 if (retorno.error_status == 401) {
                     ApiAuth apiAuth = new ApiAuth();
-                    apiAuth.RefreshBearer();
+                    apiAuth.Autenticar();
                 }
             }
             else

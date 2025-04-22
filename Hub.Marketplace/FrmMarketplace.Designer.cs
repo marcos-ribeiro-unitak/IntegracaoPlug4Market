@@ -170,7 +170,7 @@ namespace LojaWooCommerce
             // btnFechar
             // 
             this.btnFechar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFechar.Location = new System.Drawing.Point(396, 282);
+            this.btnFechar.Location = new System.Drawing.Point(396, 213);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(83, 31);
             this.btnFechar.TabIndex = 4;
@@ -182,7 +182,7 @@ namespace LojaWooCommerce
             // 
             this.btnVerificar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnVerificar.Location = new System.Drawing.Point(170, 260);
+            this.btnVerificar.Location = new System.Drawing.Point(170, 191);
             this.btnVerificar.Name = "btnVerificar";
             this.btnVerificar.Size = new System.Drawing.Size(141, 31);
             this.btnVerificar.TabIndex = 4;
@@ -199,7 +199,7 @@ namespace LojaWooCommerce
             this.panel1.Controls.Add(this.txtRequisitos);
             this.panel1.Location = new System.Drawing.Point(1, 140);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(240, 136);
+            this.panel1.Size = new System.Drawing.Size(240, 67);
             this.panel1.TabIndex = 5;
             // 
             // txtRequisitos
@@ -208,7 +208,7 @@ namespace LojaWooCommerce
             this.txtRequisitos.Location = new System.Drawing.Point(0, 0);
             this.txtRequisitos.Name = "txtRequisitos";
             this.txtRequisitos.ReadOnly = true;
-            this.txtRequisitos.Size = new System.Drawing.Size(238, 134);
+            this.txtRequisitos.Size = new System.Drawing.Size(238, 65);
             this.txtRequisitos.TabIndex = 0;
             this.txtRequisitos.Text = "";
             // 
@@ -222,7 +222,7 @@ namespace LojaWooCommerce
             this.panel2.Controls.Add(this.txtPlugins);
             this.panel2.Location = new System.Drawing.Point(240, 140);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(240, 136);
+            this.panel2.Size = new System.Drawing.Size(240, 67);
             this.panel2.TabIndex = 5;
             // 
             // txtPlugins
@@ -231,7 +231,7 @@ namespace LojaWooCommerce
             this.txtPlugins.Location = new System.Drawing.Point(0, 0);
             this.txtPlugins.Name = "txtPlugins";
             this.txtPlugins.ReadOnly = true;
-            this.txtPlugins.Size = new System.Drawing.Size(238, 134);
+            this.txtPlugins.Size = new System.Drawing.Size(238, 65);
             this.txtPlugins.TabIndex = 1;
             this.txtPlugins.Text = "";
             // 

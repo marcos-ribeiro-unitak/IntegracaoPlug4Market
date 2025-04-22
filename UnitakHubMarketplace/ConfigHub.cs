@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnitakHubMarketplace.Db;
 
@@ -40,8 +37,8 @@ CREATE TABLE Config_MarketPlace(
     ID_VENDEDOR int,
     ID_ITEM_CORINGA int,
     URL_API nvarchar(200),
-    ACCESS_TOKEN nvarchar(255),
-    REFRESH_TOKEN nvarchar(255),
+    ACCESS_TOKEN nvarchar(MAX),
+    REFRESH_TOKEN nvarchar(MAX),
     LOGIN nvarchar(50),
     SENHA nvarchar(50),
 	ID_SELLER nvarchar(255),
@@ -66,18 +63,23 @@ CREATE TABLE Config_MarketPlace(
         public static string ID_ESTOQUE = "11";
 
         public static string URL_API = "https://api.sandbox.plug4market.com.br";
-        //public static string URL_API() { return URL_SITE; } 
-        public static string ID_SELLER = "";
+
+
+        //VARIAVEIS NECESSÁRIAS PARA FAZER LOGIN
+        //VARIAVEIS NECESSÁRIAS PARA FAZER LOGIN
+        public static string CNPJ_LOJA = "";
         public static string LOGIN = "";
         public static string SENHA = "";
 
-        public static string ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb2Z0d2FyZUhvdXNlIjoiMDM3NTM5MTkwMDAxNDQiLCJzdG9yZSI6IjgwNDAxMDExMDAwMTEyIiwidXJsIjoiYXBpLnNhbmRib3gucGx1ZzRtYXJrZXQuY29tLmJyIiwidXNlcklkIjoiMzc5ZTY0MmYtYzFjYi00ZDcxLTllYzItNmVjY2Q4ODA3Njc4IiwicmVmcmVzaFRva2VuIjoiZjdkZDRiZDIyMGJhMjM5NjE3OGMzZTg2YTJjMzdiN2JjYzlhODg3YTNjZDZjMGM0MGRmOGIzNzUxNzc5MmQzYiIsInR5cGUiOiJzdG9yZSIsImlhdCI6MTc0MjgzNjg1NiwiZXhwIjoxNzQyOTIzMjU2fQ.Hj9rId8LzByF8g_rQl9ZbQljhHQwWG7c-0GXeUvG668";
-        public static string REFRESH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb2Z0d2FyZUhvdXNlQ25waiI6IjAzNzUzOTE5MDAwMTQ0Iiwic3RvcmVDbnBqIjoiODA0MDEwMTEwMDAxMTIiLCJ1c2VySWQiOiIzNzllNjQyZi1jMWNiLTRkNzEtOWVjMi02ZWNjZDg4MDc2NzgiLCJyZWZyZXNoVG9rZW4iOiJmN2RkNGJkMjIwYmEyMzk2MTc4YzNlODZhMmMzN2I3YmNjOWE4ODdhM2NkNmMwYzQwZGY4YjM3NTE3NzkyZDNiIiwiaWF0IjoxNzQyODM2ODU2LCJleHAiOjE3NDM0NDE2NTZ9.cYVgVY3ZVL9GUXtArb1lmzSkOsSrKf-Xk9N1eEJsb1U";
+        //VARIAVEIS QUE CARREGAM QUANDO FAZ LOGIN
+        //VARIAVEIS QUE CARREGAM QUANDO FAZ LOGIN
+        //public static string ID_SELLER = "";
+        public static string ACCESS_TOKEN = "";
+        public static string REFRESH_TOKEN = "";
 
         public static DateTime ULTIMA_ATUALIZACAO = DateTime.Now;
         public static DateTime ULTIMA_ATUALIZACAO_ACCESS_TOKEN = DateTime.Now;
         public static DateTime ULTIMA_ATUALIZACAO_REFRESH_TOKEN = DateTime.Now;
-
 
         public static int TIMER_PEDIDOS = 30;
 
@@ -99,12 +101,16 @@ CREATE TABLE Config_MarketPlace(
 
         public static void Carregar()
         {
-            new DbConfig().Get();
+            DbConfig dbConfig = new DbConfig();
+            dbConfig.CriarTabela();
+            //dbConfig.CriarColunas();
+            
+            dbConfig.Get();
         }
 
         public static bool validaConfig()
         {
-            bool ret = !string.IsNullOrEmpty(ConfigHub.ACCESS_TOKEN) && !string.IsNullOrEmpty(ConfigHub.REFRESH_TOKEN) && !string.IsNullOrEmpty(ConfigHub.URL_API);
+            bool ret = !string.IsNullOrEmpty(LOGIN) && !string.IsNullOrEmpty(SENHA) && !string.IsNullOrEmpty(URL_API);
             if (!ret)
                 MessageBox.Show(null, "Integração não configurada\n\nAcesse o menu '1 - Configurações' antes de continuar!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return ret;

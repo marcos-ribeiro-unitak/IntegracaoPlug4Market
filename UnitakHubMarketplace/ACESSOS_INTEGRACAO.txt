@@ -1,0 +1,39 @@
+﻿
+
+Swagger Documentação | API do Plug4Market - TecnoSpeed
+http://docs.plug4market.com.br/#tag/Canais-de-Vendas
+
+Central de Atendimento (Manual de Integração)
+https://atendimento.tecnospeed.com.br/hc/pt-br/categories/4410321200279-Plug4Market 
+
+Lista de Canais de Venda Integrados (Marketplaces e e-commerces):
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/4410708572311-Primeiros-passos-com-a-API-do-Plug4Market#h_01HHFTF1G05T4MHCRRNZJB1ZJM
+
+Lista de Etiquetas de despacho que geramos para os canais de venda:
+https://atendimento.tecnospeed.com.br/hc/pt-br/articles/11429917434775-Impress%C3%A3o-de-Etiquetas
+ 
+Lista de Etiquetas de despacho que geramos para Transportadoras:
+- Correios, Frenet, TotalExpress e Intelipost
+
+
+
+
+ACESSO DESENVOLVEDOR: https://app.sandbox.plug4market.com.br/
+login unitak@unitak.com.br
+senha Mud@r_12
+technospeed
+
+ACESSO LOJA TESTE: https://hub.sandbox.plug4market.com.br/
+Usuário: unitak@unitak.com.br
+Senha: SPDIj87Q
+
+
+
+statys
+"NEW" "CREATED" "APPROVED" "INVOICED" "SHIPPED" "CANCELED" "COMPLETED"
+
+access token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb2Z0d2FyZUhvdXNlIjoiMDM3NTM5MTkwMDAxNDQiLCJzdG9yZSI6IjgwNDAxMDExMDAwMTEyIiwidXJsIjoiYXBpLnNhbmRib3gucGx1ZzRtYXJrZXQuY29tLmJyIiwidXNlcklkIjoiMzc5ZTY0MmYtYzFjYi00ZDcxLTllYzItNmVjY2Q4ODA3Njc4IiwicmVmcmVzaFRva2VuIjoiMDg1NDJjMWRjNmJhOTU2ZmExM2M1ZDg0ZGFmMmQzNGU3OTU4ZWIzZWRlODhjYTQ4NjJjMzQyNTkxMmQ5NjgxNSIsInR5cGUiOiJzdG9yZSIsImlhdCI6MTc0MzE5MzQwNiwiZXhwIjoxNzQzMjc5ODA2fQ.TDkfy1LDAZAW457uMNtPXCzNoNLGNbXbtU6ghAoreAw
+
+refresh token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb2Z0d2FyZUhvdXNlQ25waiI6IjAzNzUzOTE5MDAwMTQ0Iiwic3RvcmVDbnBqIjoiODA0MDEwMTEwMDAxMTIiLCJ1c2VySWQiOiIzNzllNjQyZi1jMWNiLTRkNzEtOWVjMi02ZWNjZDg4MDc2NzgiLCJyZWZyZXNoVG9rZW4iOiIwODU0MmMxZGM2YmE5NTZmYTEzYzVkODRkYWYyZDM0ZTc5NThlYjNlZGU4OGNhNDg2MmMzNDI1OTEyZDk2ODE1IiwiaWF0IjoxNzQzMTkzNDA2LCJleHAiOjE3NDM3OTgyMDZ9.QQMttNJfFuXAkGybyTFca4IsnrGf796LwXNlmUI2tXs

@@ -31,7 +31,6 @@ namespace UnitakHubMarketplace
             txtUrlSite.Text = ConfigHub.URL_API;
             txtAccessToken.Text = ConfigHub.ACCESS_TOKEN;
             txtRefreshToken.Text = ConfigHub.REFRESH_TOKEN;
-            txtIDSeller.Text = ConfigHub.ID_SELLER;
 
             DbDav db = new DbDav();
             dtCond = db.SelectCondicoes();
@@ -76,10 +75,10 @@ namespace UnitakHubMarketplace
 
             ConfigHub.REFRESH_TOKEN = txtRefreshToken.Text;
             ConfigHub.ACCESS_TOKEN = txtAccessToken.Text;
+
+            ConfigHub.CNPJ_LOJA = txtCnpjLoja.Text;
             ConfigHub.LOGIN = txtUsuario.Text;
             ConfigHub.SENHA = txtSenha.Text;
-            ConfigHub.ID_SELLER = txtIDSeller.Text;
-
 
             ConfigHub.ID_CONDICAO = dtCond.Rows[cbCondicao.SelectedIndex]["ID_Condicao"].ToString();
             ConfigHub.ID_VENDEDOR = dtVend.Rows[cbVendedor.SelectedIndex]["ID_Vendedor"].ToString();
